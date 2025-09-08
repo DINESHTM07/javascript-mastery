@@ -162,13 +162,13 @@
       let logs = [];
       const originalLog = console.log;
 
-      // Playful Console Logger
+      // Playful Console Logger without circles
       console.log = (...args) => {
         const formatted = args
           .map(a => {
-            if (typeof a === "object") return "🟢 " + JSON.stringify(a, null, 2);
-            if (typeof a === "number") return "🟠 " + a;
-            if (typeof a === "string") return "⚪ " + a;
+            if (typeof a === "object") return "🟩 " + JSON.stringify(a, null, 2); // object green
+            if (typeof a === "number") return "🔶 " + a;                          // number orange
+            if (typeof a === "string") return a;                                  // string no prefix
             return a;
           })
           .join(" ");
@@ -184,11 +184,11 @@
 
       // Display output with playful intro
       const outputDiv = document.getElementById("output");
-      outputDiv.innerHTML = "🐱‍💻 Hey! Here’s what happened when you ran the project:\n\n" 
+      outputDiv.innerHTML = "🐱‍💻 Here’s what happened when you ran the project:\n\n" 
                             + logs.join("\n") 
                             + "\n\n🎉 Script ran successfully!";
 
-      // Add little confetti effect (playful)
+      // Styling output
       outputDiv.style.background = "#222";
       outputDiv.style.color = "#fff";
       outputDiv.style.padding = "1rem";
@@ -207,6 +207,7 @@
     }
   }
 </script>
+
 
 
 
