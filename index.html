@@ -153,44 +153,61 @@
     <p>Made with ❤️ by Dinesh | Learning MERN Fullstack</p>
   </footer>
 
- <script>
+<script>
   async function runProject(path) {
     try {
       const response = await fetch(path);
       const code = await response.text();
 
-      // Capture console.log
       let logs = [];
       const originalLog = console.log;
+
+      // Playful Console Logger
       console.log = (...args) => {
-        logs.push(
-          args
-            .map(a =>
-              typeof a === "object" ? JSON.stringify(a, null, 2) : a
-            )
-            .join(" ")
-        );
+        const formatted = args
+          .map(a => {
+            if (typeof a === "object") return "🟢 " + JSON.stringify(a, null, 2);
+            if (typeof a === "number") return "🟠 " + a;
+            if (typeof a === "string") return "⚪ " + a;
+            return a;
+          })
+          .join(" ");
+        logs.push(formatted);
         originalLog(...args);
       };
 
-      // Run the project code
+      // Run project code
       eval(code);
 
       // Restore console
       console.log = originalLog;
 
-      // Display logs
+      // Display output with playful intro
       const outputDiv = document.getElementById("output");
-      outputDiv.textContent = logs.join("\n") || "✅ Script ran successfully, but no console output.";
+      outputDiv.innerHTML = "🐱‍💻 Hey! Here’s what happened when you ran the project:\n\n" 
+                            + logs.join("\n") 
+                            + "\n\n🎉 Script ran successfully!";
 
-      // Auto-scroll to output
+      // Add little confetti effect (playful)
+      outputDiv.style.background = "#222";
+      outputDiv.style.color = "#fff";
+      outputDiv.style.padding = "1rem";
+      outputDiv.style.borderRadius = "10px";
+      outputDiv.style.fontFamily = "monospace";
+      outputDiv.style.overflowX = "auto";
+
+      // Scroll to output
       outputDiv.scrollIntoView({ behavior: "smooth", block: "center" });
 
     } catch (err) {
-      document.getElementById("output").textContent = "❌ Error: " + err.message;
+      const outputDiv = document.getElementById("output");
+      outputDiv.innerHTML = "❌ Oops! Bug alert! 🐞\n" + err.message;
+      outputDiv.style.color = "red";
+      outputDiv.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }
 </script>
+
 
 
 </body>
