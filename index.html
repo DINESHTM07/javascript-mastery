@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaScript Mastery Projects</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    h1 { margin: 0; }
+    .container {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .day { margin-bottom: 2rem; }
+    .day h2 {
+      color: #0073e6;
+      border-bottom: 2px solid #0073e6;
+      padding-bottom: 0.5rem;
+    }
+    ul { list-style: none; padding: 0; }
+    li {
+      background: #fff;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    a {
+      text-decoration: none;
+      color: #0073e6;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+    button {
+      background: #0073e6;
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover { background: #005bb5; }
+    #output {
+      background: #000;
+      color: #0f0;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+      min-height: 150px;
+      white-space: pre-wrap;
+      font-family: monospace;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #eee;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1> JavaScript Mastery Projects</h1>
+    <p>Day 1–15 Projects showcasing Functions, Arrays, Closures & OOP</p>
+  </header>
+
+  <div class="container">
+
+    <div class="day">
+      <h2>Day 1: Functions & Scope</h2>
+      <ul>
+        <li><span>Drills (basic functions)</span> 
+          <a href="FUNCTIONS-SCOPE/warmUp-1.js" target="_blank">View</a>
+          <button onclick="runProject('FUNCTIONS-SCOPE/warmUp-1.js')">Run</button>
+        </li>
+        <li><span>String Utilities</span> 
+          <a href="FUNCTIONS-SCOPE/string-utils.js" target="_blank">View</a>
+          <button onclick="runProject('FUNCTIONS-SCOPE/string-utils.js')">Run</button>
+        </li>
+        <li><span>Student Gradebook</span> 
+          <a href="FUNCTIONS-SCOPE/gradebook-project.js" target="_blank">View</a>
+          <button onclick="runProject('FUNCTIONS-SCOPE/gradebook-project.js')">Run</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="day">
+      <h2>Day 2: Array Methods</h2>
+      <ul>
+        <li><span>Shopping Cart</span> 
+          <a href="ARRAY-METHODS/shoping.cart.js" target="_blank">View</a>
+          <button onclick="runProject('ARRAY-METHODS/shoping.cart.js')">Run</button>
+        </li>
+        <li><span>Movie Analyzer</span> 
+          <a href="ARRAY-METHODS/MovieAnalyzer.js" target="_blank">View</a>
+          <button onclick="runProject('ARRAY-METHODS/MovieAnalyzer.js')">Run</button>
+        </li>
+        <li><span>Todo Manager</span> 
+          <a href="ARRAY-METHODS/todoManager.js" target="_blank">View</a>
+          <button onclick="runProject('ARRAY-METHODS/todoManager.js')">Run</button>
+        </li>
+        <li><span>Array Drills</span> 
+          <a href="ARRAY-METHODS/arrayDrills.js" target="_blank">View</a>
+          <button onclick="runProject('ARRAY-METHODS/arrayDrills.js')">Run</button>
+        </li>
+      </ul>
+    </div>
+
+    <div class="day">
+      <h2>Day 3: Advanced JS</h2>
+      <ul>
+        <li><span>Bank Account</span> 
+          <a href="ADVANCED-JS/BankAccount.js" target="_blank">View</a>
+          <button onclick="runProject('ADVANCED-JS/BankAccount.js')">Run</button>
+        </li>
+        <li><span>Fitness Tracker</span> 
+          <a href="ADVANCED-JS/FitnessTracker.js" target="_blank">View</a>
+          <button onclick="runProject('ADVANCED-JS/FitnessTracker.js')">Run</button>
+        </li>
+        <li><span>Expense Tracker</span> 
+          <a href="ADVANCED-JS/ExpenseTracker.js" target="_blank">View</a>
+          <button onclick="runProject('ADVANCED-JS/ExpenseTracker.js')">Run</button>
+        </li>
+        <li><span>Student Report</span> 
+          <a href="ADVANCED-JS/StudentReportFinal.js" target="_blank">View</a>
+          <button onclick="runProject('ADVANCED-JS/StudentReportFinal.js')">Run</button>
+        </li>
+      </ul>
+    </div>
+
+    <h3>📜 Console Output</h3>
+    <div id="output">Click "Run" to execute a project…</div>
+
+  </div>
+
+  <footer>
+    <p>Made with ❤️ by Dinesh | Learning MERN Fullstack</p>
+  </footer>
+
+  <script>
+  async function runProject(path) {
+    try {
+      const response = await fetch(path);
+      const code = await response.text();
+
+      // Capture console.log
+      let logs = [];
+      const originalLog = console.log;
+      console.log = (...args) => {
+        logs.push(args.join(" "));
+        originalLog(...args);
+      };
+
+      // Run the project code
+      eval(code);
+
+      // Restore console
+      console.log = originalLog;
+
+      // Display in #output
+      const outputDiv = document.getElementById("output");
+      outputDiv.textContent = logs.join("\n") || "✅ Script ran successfully, but no console output.";
+
+      // 🚀 Auto-scroll smoothly to output
+      outputDiv.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    } catch (err) {
+      document.getElementById("output").textContent = "❌ Error: " + err.message;
+    }
+  }
+</script>
+
+</body>
+</html>
